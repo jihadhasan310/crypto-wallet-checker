@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import WalletForm from "@/components/WalletForm";
 import ResultsDashboard from "@/components/ResultsDashboard";
 import TransactionList from "@/components/TransactionList";
+import DonationFooter from "@/components/DonationFooter";
 import type { AnalyzeResult } from "@/lib/types";
 
 export default function HomeClient() {
@@ -126,7 +127,9 @@ export default function HomeClient() {
         </div>
       )}
 
-      <footer className="mt-12 text-center text-xs text-slate-600">
+      <DonationFooter />
+
+      <footer className="mt-8 text-center text-xs text-slate-600">
         Data from Etherscan · Ethereum mainnet only · Free tier API
       </footer>
     </main>
