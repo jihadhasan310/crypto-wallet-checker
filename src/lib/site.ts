@@ -4,7 +4,7 @@ import { isValidEthAddress } from "./validation";
  * Set your donation wallet here, or use NEXT_PUBLIC_DONATION_WALLET in .env / Vercel.
  * Example: "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb"
  */
-export const DONATION_WALLET_ADDRESS = "";
+export const DONATION_WALLET_ADDRESS = "0xab4Cc09b8a24ffFbfCDe698f7e508c9c0869d7D4";
 
 const configured =
   process.env.NEXT_PUBLIC_DONATION_WALLET?.trim() || DONATION_WALLET_ADDRESS.trim();
