@@ -1,3 +1,4 @@
+import type { ChainConfig } from "./chains";
 import type { AnalyzeResult, TokenTransaction } from "./types";
 import { normalizeAddress } from "./validation";
 
@@ -20,7 +21,6 @@ interface EtherscanResponse {
 }
 
 const ETHERSCAN_BASE = "https://api.etherscan.io/v2/api";
-const CHAIN_ID = "1"; // Ethereum mainnet
 
 function formatTokenAmount(rawValue: bigint, decimals: number): string {
   const negative = rawValue < 0n;
@@ -102,10 +102,11 @@ function parseTransfers(
 export async function fetchTokenTransfers(
   wallet: string,
   tokenContract: string,
-  apiKey: string
+  apiKey: string,
+  chain: ChainConfig
 ): Promise<AnalyzeResult> {
   const params = new URLSearchParams({
-    chainid: CHAIN_ID,
+    chainid: chain.id,
     module: "account",
     action: "tokentx",
     address: wallet,
@@ -145,6 +146,9 @@ export async function fetchTokenTransfers(
   const net = totalReceived - totalSent;
 
   return {
+    chainId: chain.id,
+    chainName: chain.name,
+    chainSlug: chain.slug,
     wallet,
     tokenContract,
     tokenSymbol: symbol,

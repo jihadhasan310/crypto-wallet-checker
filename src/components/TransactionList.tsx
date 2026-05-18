@@ -1,8 +1,10 @@
+import { getChain, getTxExplorerUrl } from "@/lib/chains";
 import type { TokenTransaction } from "@/lib/types";
 
 interface TransactionListProps {
   transactions: TokenTransaction[];
   tokenSymbol: string;
+  chainSlug: string;
 }
 
 function shortenAddress(addr: string): string {
@@ -17,10 +19,16 @@ function formatDate(timestamp: number): string {
   });
 }
 
-export default function TransactionList({ transactions, tokenSymbol }: TransactionListProps) {
+export default function TransactionList({
+  transactions,
+  tokenSymbol,
+  chainSlug,
+}: TransactionListProps) {
   if (transactions.length === 0) {
     return null;
   }
+
+  const chain = getChain(chainSlug);
 
   return (
     <section className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-6 shadow-xl shadow-black/20">
@@ -73,14 +81,20 @@ export default function TransactionList({ transactions, tokenSymbol }: Transacti
                   {shortenAddress(tx.to)}
                 </td>
                 <td className="py-3">
-                  <a
-                    href={`https://etherscan.io/tx/${tx.hash}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-mono text-xs text-[var(--accent)] hover:underline"
-                  >
-                    {shortenAddress(tx.hash)}
-                  </a>
+                  {chain ? (
+                    <a
+                      href={getTxExplorerUrl(chain, tx.hash)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono text-xs text-[var(--accent)] hover:underline"
+                    >
+                      {shortenAddress(tx.hash)}
+                    </a>
+                  ) : (
+                    <span className="font-mono text-xs text-slate-400">
+                      {shortenAddress(tx.hash)}
+                    </span>
+                  )}
                 </td>
               </tr>
             ))}

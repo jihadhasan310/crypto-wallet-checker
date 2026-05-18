@@ -1,10 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
+import { DEFAULT_CHAIN, getChain } from "@/lib/chains";
 import { fetchTokenTransfers } from "@/lib/etherscan";
 import { isValidEthAddress } from "@/lib/validation";
 
 export async function GET(request: NextRequest) {
   const wallet = request.nextUrl.searchParams.get("wallet")?.trim() ?? "";
   const token = request.nextUrl.searchParams.get("token")?.trim() ?? "";
+  const chainSlug = request.nextUrl.searchParams.get("chain")?.trim() || DEFAULT_CHAIN;
+
+  const chain = getChain(chainSlug);
+  if (!chain) {
+    return NextResponse.json(
+      { error: "Unsupported chain. Use ethereum or polygon." },
+      { status: 400 }
+    );
+  }
 
   if (!wallet || !token) {
     return NextResponse.json(
@@ -15,7 +25,7 @@ export async function GET(request: NextRequest) {
 
   if (!isValidEthAddress(wallet) || !isValidEthAddress(token)) {
     return NextResponse.json(
-      { error: "Invalid Ethereum address. Use a 0x-prefixed 40-character hex address." },
+      { error: "Invalid address. Use a 0x-prefixed 40-character hex address." },
       { status: 400 }
     );
   }
@@ -29,7 +39,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const result = await fetchTokenTransfers(wallet, token, apiKey);
+    const result = await fetchTokenTransfers(wallet, token, apiKey, chain);
     return NextResponse.json(result);
   } catch (err) {
     const message = err instanceof Error ? err.message : "Failed to fetch blockchain data.";

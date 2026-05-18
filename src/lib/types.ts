@@ -12,6 +12,9 @@ export interface TokenTransaction {
 }
 
 export interface AnalyzeResult {
+  chainId: string;
+  chainName: string;
+  chainSlug: string;
   wallet: string;
   tokenContract: string;
   tokenSymbol: string;

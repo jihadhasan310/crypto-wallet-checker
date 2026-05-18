@@ -43,7 +43,8 @@ export default function ResultsDashboard({ data }: ResultsDashboardProps) {
           <h2 className="text-lg font-semibold text-white">Results</h2>
           <p className="text-sm text-slate-400">
             {data.transactionCount} transfer{data.transactionCount === 1 ? "" : "s"} for{" "}
-            <span className="font-mono text-slate-300">{data.tokenSymbol}</span>
+            <span className="font-mono text-slate-300">{data.tokenSymbol}</span> on{" "}
+            <span className="text-slate-300">{data.chainName}</span>
           </p>
         </div>
       </div>
