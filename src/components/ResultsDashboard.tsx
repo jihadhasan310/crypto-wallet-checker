@@ -80,17 +80,6 @@ export default function ResultsDashboard({ data }: ResultsDashboardProps) {
         Net = total received − total sent (transfer history only, not current on-chain balance).
       </p>
 
-      <p className="mt-4 text-center text-xs text-slate-500">
-        Built by{" "}
-        <a
-          href="https://devexec-strategy.vercel.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-semibold text-[var(--accent)] hover:underline"
-        >
-          DevexecStrategy
-        </a>
-      </p>
     </section>
   );
 }

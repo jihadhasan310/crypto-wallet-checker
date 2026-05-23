@@ -104,7 +104,7 @@ export default function HomeClient() {
     <main className="mx-auto min-h-screen max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
       <header className="mb-10 text-center">
         <p className="mb-2 text-sm font-medium uppercase tracking-widest text-[var(--accent)]">
-          Ethereum · Polygon · ERC-20
+          ERC-20
         </p>
         <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
           Crypto Wallet Profit Checker
@@ -158,7 +158,18 @@ export default function HomeClient() {
       <DonationFooter />
 
       <footer className="mt-8 text-center text-xs text-slate-600">
-        Data from Etherscan · Ethereum & Polygon · Free tier API
+        <p>Data from Etherscan · ERC-20 · Free tier API</p>
+        <p className="mt-2">
+          Built by{" "}
+          <a
+            href="https://devexec-strategy.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-[var(--accent)] hover:underline"
+          >
+            DevexecStrategy
+          </a>
+        </p>
       </footer>
     </main>
   );

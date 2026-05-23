@@ -7,6 +7,12 @@ interface TransactionListProps {
   chainSlug: string;
 }
 
+function formatTo4Decimals(value: string): string {
+  const num = parseFloat(value);
+  if (isNaN(num)) return value;
+  return num.toFixed(4);
+}
+
 function shortenAddress(addr: string): string {
   if (addr.length < 12) return addr;
   return `${addr.slice(0, 6)}…${addr.slice(-4)}`;
@@ -72,7 +78,7 @@ export default function TransactionList({
                   }`}
                 >
                   {tx.direction === "in" ? "+" : "−"}
-                  {tx.amount} {tokenSymbol}
+                  {formatTo4Decimals(tx.amount)} {tokenSymbol}
                 </td>
                 <td className="py-3 pr-4 font-mono text-xs text-slate-400">
                   {shortenAddress(tx.from)}

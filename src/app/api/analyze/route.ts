@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
   const chain = getChain(chainSlug);
   if (!chain) {
     return NextResponse.json(
-      { error: "Unsupported chain. Use ethereum or polygon." },
+      { error: "Unsupported chain." },
       { status: 400 }
     );
   }
